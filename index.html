@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کلاس آنلاین - سیستم حضور و غیاب</title>
+    <title>کلاس آنلاین</title>
     <style>
         :root {
             --primary-color: #4a6fa5;
@@ -41,7 +41,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.7);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,18 +49,19 @@
         }
         
         .modal-content {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: 15px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
         }
         
         .modal-content h2 {
             margin-bottom: 1.5rem;
             text-align: center;
-            color: var(--primary-color);
+            color: #2575fc;
         }
         
         .form-group {
@@ -71,6 +72,7 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
+            color: #333;
         }
         
         .form-group input, .form-group select {
@@ -84,17 +86,49 @@
         .submit-btn {
             width: 100%;
             padding: 0.75rem;
-            background-color: var(--primary-color);
+            background: linear-gradient(to right, #6a11cb, #2575fc);
             color: white;
             border: none;
             border-radius: 5px;
             font-size: 1rem;
             cursor: pointer;
             margin-top: 1rem;
+            transition: all 0.3s;
         }
         
         .submit-btn:hover {
-            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .designer-section {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+        
+        .designer-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            border: 3px solid white;
+            overflow: hidden;
+        }
+        
+        .designer-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .designer-name {
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 1px;
         }
         
         /* استایل‌های اصلی */
@@ -187,6 +221,43 @@
             margin-bottom: 0.5rem;
         }
         
+        .pending-users {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .pending-user {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            background-color: #fff3cd;
+            border-radius: 5px;
+        }
+        
+        .approve-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .reject-btn {
+            background-color: var(--error);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-right: 0.25rem;
+        }
+        
         .chat-area {
             flex: 1;
             display: flex;
@@ -237,6 +308,26 @@
         
         .teacher-message .message-sender {
             color: var(--teacher-color);
+        }
+        
+        .student-1 .message-text {
+            color: #e74c3c;
+        }
+        
+        .student-2 .message-text {
+            color: #3498db;
+        }
+        
+        .student-3 .message-text {
+            color: #2ecc71;
+        }
+        
+        .student-4 .message-text {
+            color: #9b59b6;
+        }
+        
+        .student-5 .message-text {
+            color: #e67e22;
         }
         
         .message-time {
@@ -423,6 +514,39 @@
             display: none;
         }
         
+        .global-designer {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 5px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+        
+        .global-designer-photo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-left: 5px;
+            overflow: hidden;
+        }
+        
+        .global-designer-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .global-designer-name {
+            font-size: 0.7rem;
+            color: #333;
+            font-weight: 500;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -465,12 +589,26 @@
                 <button type="submit" class="submit-btn">ورود به کلاس</button>
             </form>
         </div>
+        
+        <div class="designer-section">
+            <div class="designer-photo">
+                <img src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
+            </div>
+            <div class="designer-name">Designer A.R. Yousefzadeh</div>
+        </div>
+    </div>
+    
+    <div class="global-designer">
+        <div class="global-designer-photo">
+            <img src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
+        </div>
+        <div class="global-designer-name">A.R. Yousefzadeh</div>
     </div>
     
     <div class="notification" id="notification">لینک کپی شد!</div>
     
     <header>
-        <h1>کلاس آنلاین - ریاضی دهم</h1>
+        <h1>کلاس آنلاین</h1>
         <div class="user-info">
             <div class="user-badge" id="userBadge">نام کاربر</div>
             <div id="connectionStatus">آنلاین</div>
@@ -481,7 +619,7 @@
         <div class="chat-area">
             <div class="messages" id="messages">
                 <div class="message system">
-                    <div class="message-text">به کلاس آنلاین ریاضی دهم خوش آمدید! برای شروع، به صدا بپیوندید.</div>
+                    <div class="message-text">به کلاس آنلاین خوش آمدید! برای شروع، به صدا بپیوندید.</div>
                     <div class="message-time" id="currentTime">هم اکنون</div>
                 </div>
             </div>
@@ -522,11 +660,17 @@
                 </button>
             </div>
             
-            <div class="invite-section">
+            <div class="invite-section hidden" id="inviteSection">
                 <p>برای دعوت دیگران از لینک زیر استفاده کنید:</p>
                 <div class="invite-link">
                     <input type="text" class="link-input" id="inviteLink" readonly>
                     <button class="copy-button" id="copyLink">کپی</button>
+                </div>
+                <div style="margin-top: 10px;">
+                    <label>
+                        <input type="checkbox" id="autoApproveCheckbox">
+                        اجازه ورود خودکار برای همه کاربران
+                    </label>
                 </div>
             </div>
         </div>
@@ -536,6 +680,13 @@
                 <h3>حاضرین در کلاس (<span id="userCount">0</span>)</h3>
                 <div class="attendance-list" id="attendanceList">
                     <!-- لیست حاضرین اینجا نمایش داده می‌شود -->
+                </div>
+            </div>
+            
+            <div class="pending-users hidden" id="pendingUsersSection">
+                <h4>کاربران در انتظار تایید</h4>
+                <div id="pendingUsersList">
+                    <!-- لیست کاربران در انتظار تایید -->
                 </div>
             </div>
             
@@ -553,11 +704,14 @@
                 this.currentUser = null;
                 this.attendance = [];
                 this.users = new Map();
+                this.pendingUsers = [];
                 this.isTeacher = false;
                 this.localStream = null;
                 this.isJoined = false;
                 this.isMuted = false;
+                this.autoApprove = false;
                 this.roomId = this.getRoomIdFromURL();
+                this.studentColors = {};
                 
                 this.init();
             }
@@ -573,7 +727,7 @@
             
             getRoomIdFromURL() {
                 const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get('room') || 'math-class-10';
+                return urlParams.get('room') || 'class-' + Math.random().toString(36).substr(2, 5);
             }
             
             setupEventListeners() {
@@ -600,6 +754,11 @@
                 // کنترل‌های استاد
                 document.getElementById('viewAttendance').addEventListener('click', () => this.viewAttendanceReport());
                 document.getElementById('downloadAttendance').addEventListener('click', () => this.downloadAttendanceReport());
+                
+                // چک باکس تایید خودکار
+                document.getElementById('autoApproveCheckbox').addEventListener('change', (e) => {
+                    this.autoApprove = e.target.checked;
+                });
             }
             
             registerUser() {
@@ -613,13 +772,22 @@
                     role: userRole,
                     studentId: studentId,
                     joinTime: new Date(),
-                    leaveTime: null
+                    leaveTime: null,
+                    approved: userRole === 'teacher' // استادان به طور خودکار تایید می‌شوند
                 };
                 
                 this.isTeacher = userRole === 'teacher';
                 
-                // ثبت حضور
-                this.recordAttendance(this.currentUser, 'join');
+                if (this.isTeacher) {
+                    // اگر کاربر استاد است، مستقیماً وارد شود
+                    this.approveUser(this.currentUser);
+                } else {
+                    // اگر کاربر دانش‌آموز است، در لیست انتظار قرار گیرد
+                    this.addPendingUser(this.currentUser);
+                    document.getElementById('userModal').style.display = 'none';
+                    this.showNotification('در انتظار تایید استاد...');
+                    return;
+                }
                 
                 // مخفی کردن مدال
                 document.getElementById('userModal').style.display = 'none';
@@ -630,6 +798,7 @@
                 // نمایش کنترل‌های استاد اگر کاربر استاد باشد
                 if (this.isTeacher) {
                     document.getElementById('teacherControls').classList.remove('hidden');
+                    document.getElementById('inviteSection').classList.remove('hidden');
                     document.getElementById('userBadge').classList.add('teacher-badge');
                     document.getElementById('userBadge').textContent = `استاد: ${userName}`;
                 } else {
@@ -638,6 +807,102 @@
                 
                 // پیام خوش‌آمدگویی
                 this.addSystemMessage(`${userName} به کلاس پیوست.`);
+            }
+            
+            addPendingUser(user) {
+                this.pendingUsers.push(user);
+                this.updatePendingUsersList();
+                
+                // اطلاع به استاد
+                if (this.isTeacher) {
+                    this.addSystemMessage(`دانش‌آموز ${user.name} در انتظار تایید است.`);
+                }
+            }
+            
+            updatePendingUsersList() {
+                const pendingUsersList = document.getElementById('pendingUsersList');
+                const pendingUsersSection = document.getElementById('pendingUsersSection');
+                
+                if (this.pendingUsers.length > 0 && this.isTeacher) {
+                    pendingUsersSection.classList.remove('hidden');
+                } else {
+                    pendingUsersSection.classList.add('hidden');
+                }
+                
+                pendingUsersList.innerHTML = '';
+                
+                this.pendingUsers.forEach(user => {
+                    const pendingUserElement = document.createElement('div');
+                    pendingUserElement.className = 'pending-user';
+                    pendingUserElement.innerHTML = `
+                        <div>${user.name}</div>
+                        <div>
+                            <button class="reject-btn" data-userid="${user.id}">رد</button>
+                            <button class="approve-btn" data-userid="${user.id}">تایید</button>
+                        </div>
+                    `;
+                    
+                    pendingUsersList.appendChild(pendingUserElement);
+                });
+                
+                // اضافه کردن event listener برای دکمه‌های تایید و رد
+                document.querySelectorAll('.approve-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const userId = e.target.getAttribute('data-userid');
+                        this.approveUserById(userId);
+                    });
+                });
+                
+                document.querySelectorAll('.reject-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const userId = e.target.getAttribute('data-userid');
+                        this.rejectUserById(userId);
+                    });
+                });
+            }
+            
+            approveUserById(userId) {
+                const userIndex = this.pendingUsers.findIndex(user => user.id === userId);
+                if (userIndex !== -1) {
+                    const user = this.pendingUsers[userIndex];
+                    this.pendingUsers.splice(userIndex, 1);
+                    this.approveUser(user);
+                    this.updatePendingUsersList();
+                }
+            }
+            
+            rejectUserById(userId) {
+                const userIndex = this.pendingUsers.findIndex(user => user.id === userId);
+                if (userIndex !== -1) {
+                    const user = this.pendingUsers[userIndex];
+                    this.pendingUsers.splice(userIndex, 1);
+                    this.addSystemMessage(`درخواست ${user.name} رد شد.`);
+                    this.updatePendingUsersList();
+                }
+            }
+            
+            approveUser(user) {
+                user.approved = true;
+                this.recordAttendance(user, 'join');
+                this.addSystemMessage(`${user.name} به کلاس پیوست.`);
+                
+                // اختصاص رنگ به دانش‌آموز
+                if (user.role === 'student') {
+                    this.assignColorToStudent(user.id);
+                }
+            }
+            
+            assignColorToStudent(studentId) {
+                const colors = ['student-1', 'student-2', 'student-3', 'student-4', 'student-5'];
+                const usedColors = Object.values(this.studentColors);
+                const availableColors = colors.filter(color => !usedColors.includes(color));
+                
+                if (availableColors.length > 0) {
+                    this.studentColors[studentId] = availableColors[0];
+                } else {
+                    // اگر همه رنگ‌ها استفاده شده‌اند، از اول شروع کنیم
+                    this.studentColors[studentId] = colors[Math.floor(Math.random() * colors.length)];
+                }
             }
             
             generateUserId() {
@@ -797,11 +1062,18 @@
             }
             
             sendMessage() {
+                // اگر کاربر تایید نشده است، نمی‌تواند پیام بفرستد
+                if (this.currentUser && !this.currentUser.approved) {
+                    this.showNotification('شما هنوز تایید نشده‌اید. لطفا منتظر بمانید.');
+                    return;
+                }
+                
                 const messageInput = document.getElementById('messageInput');
                 const messageText = messageInput.value.trim();
                 
                 if (messageText) {
-                    this.addMessage(messageText, this.currentUser.name, true, this.isTeacher);
+                    const studentColorClass = this.studentColors[this.currentUser.id] || '';
+                    this.addMessage(messageText, this.currentUser.name, true, this.isTeacher, studentColorClass);
                     messageInput.value = '';
                     
                     // شبیه‌سازی پاسخ سایر کاربران
@@ -809,10 +1081,10 @@
                 }
             }
             
-            addMessage(text, sender, isSent = false, isTeacher = false) {
+            addMessage(text, sender, isSent = false, isTeacher = false, colorClass = '') {
                 const messagesContainer = document.getElementById('messages');
                 const messageElement = document.createElement('div');
-                messageElement.className = `message ${isSent ? 'sent' : 'received'} ${isTeacher ? 'teacher-message' : ''}`;
+                messageElement.className = `message ${isSent ? 'sent' : 'received'} ${isTeacher ? 'teacher-message' : ''} ${colorClass}`;
                 
                 const now = new Date();
                 const timeString = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
@@ -908,7 +1180,7 @@
             viewAttendanceReport() {
                 if (!this.isTeacher) return;
                 
-                let report = 'گزارش حضور و غیاب کلاس ریاضی دهم\n';
+                let report = 'گزارش حضور و غیاب کلاس\n';
                 report += 'تاریخ: ' + new Date().toLocaleDateString('fa-IR') + '\n\n';
                 
                 report += 'نام\tنقش\tشماره دانش‌آموزی\tزمان ورود\tزمان خروج\tمدت حضور\n';
